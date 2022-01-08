@@ -8,7 +8,7 @@ Simple script for moneywash (laundering)
 - Notify
 
 # Installation
-1.Import items.sql to you database
+1.Import item.sql to you database
 
 2.Go to config.lua and config it to you likings
 
