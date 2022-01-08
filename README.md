@@ -19,6 +19,8 @@ Simple script for moneywash (laundering)
 
 [Mythic notify](https://github.com/wowpanda/mythic_notify)
 
+[qtarget](https://github.com/overextended/qtarget)
+
 # Made by Иричех2059 <3#7664
 
 ### You can edit it however you want, but you are not allowed to rename it/sell it/republish it as your.
