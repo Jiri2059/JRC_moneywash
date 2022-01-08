@@ -3,12 +3,6 @@ Config = {}
 Config.EnableVersionCheck = true
 Config.VersionCheckInterval = 60
 
---POLICE NOTIFY
-Config.EnablePoliceNotify = true -- When Player is Processing Drugs (configured with linden_outlawalert)
-Config.PoliceNotifyBlipSpirit = 161
-Config.PoliceNotifyBlipScale = 1.0
-Config.PoliceNotifyBlipColor = 1
-
 --MONEYWASH
 Config.NeedIDCardToWashMoney = false
 Config.EnableTax = true 
