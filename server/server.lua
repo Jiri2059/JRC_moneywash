@@ -43,3 +43,4 @@ ESX.RegisterServerCallback("JRC_moneywash:checkIDCard", function(source, cb)
     end
 end)
 
+print('^5Made By JRC scripts^7: ^1'..GetCurrentResourceName()..'^7 started ^2successfully^7...')
