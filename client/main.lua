@@ -1,5 +1,8 @@
 ESX = nil
 
+local HasAlreadyEnteredMarker = false
+local LastZone                = nil
+
 Citizen.CreateThread(function()
     while ESX == nil do
         Citizen.Wait(0)
@@ -42,7 +45,9 @@ function WashMoney(amountToWash)
                     if dialog ~= nil then
                         if dialog[1].input == nil then return end
                         local amountToWash = tonumber(dialog[1].input)
+                        local playerPed = PlayerPedId()
                         TriggerServerEvent("JRC_moneywash:canWashMoney", amountToWash)
+                        FreezeEntityPosition(playerPed, false)
 					end
     end
 end
@@ -52,7 +57,7 @@ AddEventHandler("JRC_moneywash:MoneyWashFunc", function(amountToWash)
         exports.rprogress:Custom(
             {
                 Async = true,
-				Duration = 25000,
+				Duration = Config.WashTime*1000,
                 Label = "MONEY IS LAUNDERING. . .",
 				Easing = "easeLinear",
                 DisableControls = {
@@ -68,48 +73,72 @@ AddEventHandler("JRC_moneywash:MoneyWashFunc", function(amountToWash)
                     ClearPedTasks(PlayerPedId())
                 end
             end) 
-	Citizen.Wait(25000)
+	Citizen.Wait(Config.WashTime*1000)
     TriggerServerEvent("JRC_moneywash:washMoney", amountToWash)
 end)
 
-if Config.EnableMoneyWashBlip then
-    Citizen.CreateThread(function()
+-- Display markers
+Citizen.CreateThread(function ()
+	while true do
+		Citizen.Wait(0)
+        if Config.qtarget == false then
+
+		local coords = GetEntityCoords(PlayerPedId())
+
 		for k,v in pairs(Config.MoneyWash) do
-			for i = 1, #v.WashMoney, 1 do
-				local blip = AddBlipForCoord(v.WashMoney[i])
-				
-				SetBlipSprite (blip, 483)
-				SetBlipDisplay(blip, 4)
-				SetBlipScale  (blip, 0.8)
-				SetBlipColour (blip, 17)
-				SetBlipAsShortRange(blip, true)
-				
-				BeginTextCommandSetBlipName('STRING')
-				AddTextComponentSubstringPlayerName(Config.WashMoneyBlipName)
-				EndTextCommandSetBlipName(blip)
-			end
-		end
-	end)
-end
+			if(v.Type ~= -1 and GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2) then
+				DrawMarker(2, 1136.0300, -989.5841, 46.1131, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.2, 13, 0, 255, 255, 0, 0, 0, 1, 0, 0, 0)
+                if GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2 then
+                    TriggerEvent('luke_textui:ShowUI', 'E - Wash Money')
+                        if IsControlJustReleased(0, 38) then
+                            TriggerEvent('moneywash:target')
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
 
 Citizen.CreateThread(function()
-    exports.qtarget:AddBoxZone("MoneyWash", vector3(1135.65, -990.48, 46.11), 5.8, 2.4, {
-        name="MoneyWash",
-        heading=7,
-        debugPoly=false,
-        minZ=45.76,
-        maxZ=47.56
-    }, {
-        options = {
-        {
-        event = "moneywash:target",
-        icon = "fas fa-money-bill",
-        label = "Wash Money",
-        item = "moneywash_idcard",
+   while true do
+    Citizen.Wait(0)
+    if Config.qtarget == false then
+    local coords = GetEntityCoords(PlayerPedId())
+
+        if GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2 then
+            TriggerEvent('luke_textui:ShowUI', 'E - Wash Money')
+                if IsControlJustReleased(0, 38) then
+                    print('Dave je gay')
+                    TriggerEvent('moneywash:target')
+                end
+            else
+                TriggerEvent('luke_textui:HideUI')
+            end
+        end
+    end
+end)
+
+
+Citizen.CreateThread(function()
+    if Config.qtarget then
+        exports.qtarget:AddBoxZone("MoneyWash", vector3(1136.0300, -989.5841, 46.1131), 5.8, 2.4, {
+            name="MoneyWash",
+            heading=7,
+            debugPoly=false,
+            minZ=45.76,
+            maxZ=47.56
+        }, {
+            options = {
+            {
+            event = "moneywash:target",
+            icon = "fas fa-money-bill",
+            label = "Wash Money",
+            },
         },
-    },
-        distance = 4.0
-    })
+            distance = 4.0
+        })
+    end
 end)
 
 RegisterNetEvent('moneywash:target')
