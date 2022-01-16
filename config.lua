@@ -1,17 +1,11 @@
 Config = {}
 
-Config.EnableVersionCheck = true
-Config.VersionCheckInterval = 60
-
---MONEYWASH
-Config.NeedIDCardToWashMoney = false
-Config.EnableTax = true 
+--Money wash
+Config.NeedIDCardToWashMoney = true -- Need item to acces the money wash - item: moneywash_idcard
+Config.EnableTax = true --Tax at money wash (how much money it grab)
 Config.TaxRate = 10 --In percents %
-
--- BLIP --
-
-Config.EnableMoneyWashBlip = false
-Config.WashMoneyBlipName = "Laundry"
+Config.WashTime = 25 --in seconds
+Config.qtarget = true --Use qtarget
 
 --Coordinates for Money Wash
 Config.MoneyWash = {
