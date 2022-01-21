@@ -10,6 +10,16 @@ Citizen.CreateThread(function()
     end
 end)
 
+function DrawMoneyMarker()
+    DrawMarker(2, 1136.0300, -989.5841, 46.1131, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.2, 13, 0, 255, 255, 0, 0, 0, 1, 0, 0, 0)
+        if GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2 then
+            TriggerEvent('luke_textui:ShowUI', 'E - Wash Money')
+                if IsControlJustReleased(0, 38) then
+                    TriggerEvent('moneywash:target')
+                end
+            end
+        end
+
 function WashMoney(amountToWash)
     if Config.NeedIDCardToWashMoney then
         ESX.TriggerServerCallback("JRC_moneywash:checkIDCard", function(result)
@@ -85,17 +95,11 @@ Citizen.CreateThread(function ()
 
 		local coords = GetEntityCoords(PlayerPedId())
 
-		for k,v in pairs(Config.MoneyWash) do
-			if(v.Type ~= -1 and GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2) then
-				DrawMarker(2, 1136.0300, -989.5841, 46.1131, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.4, 0.2, 13, 0, 255, 255, 0, 0, 0, 1, 0, 0, 0)
-                if GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2 then
-                    TriggerEvent('luke_textui:ShowUI', 'E - Wash Money')
-                        if IsControlJustReleased(0, 38) then
-                            TriggerEvent('moneywash:target')
-                        end
-                    end
-                end
-            end
+		    for k,v in pairs(Config.MoneyWash) do
+			    if(v.Type ~= -1 and GetDistanceBetweenCoords(coords, 1136.0300, -989.5841, 46.1131, true) < 2) then
+                    DrawMoneyMarker()
+              end
+           end
         end
     end
 end)
