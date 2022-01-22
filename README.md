@@ -19,9 +19,10 @@ Simple script for moneywash (laundering)
 
 [Mythic notify](https://github.com/wowpanda/mythic_notify)
 
-[qtarget](https://github.com/overextended/qtarget)
-
 [zf-dialog](https://github.com/zf-development/zf_dialog)
+
+## Optional Requirements
+[qtarget](https://github.com/overextended/qtarget)
 
 # Made by Иричех2059 <3#7664
 
