@@ -1,6 +1,6 @@
 fx_version   	 'cerulean'
 game 		 'gta5'
-Author 		 'Иричех2059 <3#7664'
+author 'Иричех2059 <3#2059 (817517695566086206)'
 version      	 '1.0.1'
 
 
