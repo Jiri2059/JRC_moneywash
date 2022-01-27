@@ -24,6 +24,6 @@ Simple script for moneywash (laundering)
 ## Optional Requirements
 [qtarget](https://github.com/overextended/qtarget)
 
-# Made by Иричех2059 <3#7664
+# Made by Иричех2059 <3#2059
 
 ### You can edit it however you want, but you are not allowed to rename it/sell it/republish it as your.
