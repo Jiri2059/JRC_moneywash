@@ -3,9 +3,9 @@ ESX = nil
 local HasAlreadyEnteredMarker = false
 local LastZone                = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
-        Citizen.Wait(0)
+        Wait(0)
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
     end
 end)
@@ -83,14 +83,14 @@ AddEventHandler("JRC_moneywash:MoneyWashFunc", function(amountToWash)
                     ClearPedTasks(PlayerPedId())
                 end
             end) 
-	Citizen.Wait(Config.WashTime*1000)
+	Wait(Config.WashTime*1000)
     TriggerServerEvent("JRC_moneywash:washMoney", amountToWash)
 end)
 
 -- Display markers
-Citizen.CreateThread(function ()
+CreateThread(function ()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
         if Config.qtarget == false then
 
 		local coords = GetEntityCoords(PlayerPedId())
@@ -104,9 +104,9 @@ Citizen.CreateThread(function ()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
    while true do
-    Citizen.Wait(0)
+    Wait(0)
     if Config.qtarget == false then
     local coords = GetEntityCoords(PlayerPedId())
 
@@ -124,7 +124,7 @@ Citizen.CreateThread(function()
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Config.qtarget then
         exports.qtarget:AddBoxZone("MoneyWash", vector3(1136.0300, -989.5841, 46.1131), 5.8, 2.4, {
             name="MoneyWash",
